@@ -1,10 +1,19 @@
 
+# All this information is gotten by loading FoE and watching the requests in the browser's developer console
+
+# The version, secret and timestamp need to match and might change when the game updates
 game:
+    # Update this to match the server you are playing on
+    server: en1
+    # Inside the 'Client-Identification' header
     version: 1.98
-    server: en9
+    # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
     secret: bTsZ5/8lOyt2Nfqb8qhBDIildUIzz842pzNidXIL6/ytDWSRdtWbuC7upEcwCc/k6cuXDOppjOK/gudECEUTYQ==
+    # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
     timestamp: 1491392992
 
 login:
-    user_key: '***'
-    sid: '***'
+    # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
+    user_key: 0xtyAjGbfxjCGU7UchLrAIWn
+    # This is the value of 'sid' inside the cookie of each request
+    sid: UGPhiOpx796cV7hxYmz0dVBsiGQsiqL15R0XAKxB
