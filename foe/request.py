@@ -1,0 +1,86 @@
+
+"""
+"""
+
+# Native
+import hashlib
+import json
+import requests
+import random
+
+# Proprietary
+from config import config
+
+
+
+class Request(object):
+    """
+    """
+
+    REQUEST_ID = 0 #random.randrange(0, 255)
+
+    @classmethod
+    def body(cls, data):
+        """
+        """
+
+        return json.dumps(data).replace(' ', '')
+
+    @classmethod
+    def signature(cls, body):
+        """
+        """
+
+        data = config['login']['user_key'] + config['game']['secret'] + body
+
+        return hashlib.md5(data).hexdigest()[0:10]
+
+    @classmethod
+    def request(cls, payload):
+        """
+        """
+
+        body = cls.body(payload)
+
+        signature = cls.signature(body)
+
+        version = config['game']['version']
+        # TODO: Might want to change these values to match your browser
+        headers = {
+            "Connection": "keep-alive",
+            # Important to keep this up to date
+            "Client-Identification": "version=%s; requiredVersion=%s; platform=bro; platformVersion=web" % (version, version),
+            "Origin": "https://foeen.innogamescdn.com",
+            "X-Requested-With": "ShockwaveFlash/25.0.0.127",
+            "Signature": "%s" % signature,
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36",
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            "Referer": "https://foeen.innogamescdn.com/swf/Preloader.swf?%s/[[DYNAMIC]]/1" % (config['game']['timestamp']),
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "en-US,en;q=0.8,ja;q=0.6",
+            "Cookie": "metricsUvId=98cf6fd3-5872-4080-bf40-934b90b70a71; sid=%s; req_page_info=game_v1; start_page_type=game; start_page_version=v1; _ga=GA1.2.724940699.1487015436; ig_conv_last_site=https://%s.forgeofempires.com/game/index" % (config['login']['sid'], config['game']['server']),
+        }
+
+        url = 'https://%s.forgeofempires.com/game/json?h=%s' % (config['game']['server'], config['login']['user_key'])
+
+        response = requests.post(url, data=body, headers=headers)
+
+        if not (response.status_code == 200):
+            raise Exception("Did not get a 200 response code: %s" % response.content)
+
+        data = response.json()
+
+        # Some guards/checks for errors and session timeout
+        status = data[0]
+
+        klass = status.get('__class__')
+
+        if klass == 'Error':
+            raise Exception(status.get('message'))
+        elif klass == 'Redirect':
+            raise Exception("Session has expired, update USR_KEY and SID")
+
+        cls.REQUEST_ID = cls.REQUEST_ID + 1
+
+        return data

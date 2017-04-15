@@ -1,0 +1,95 @@
+[MASTER]
+
+# Python code to execute, usually for sys.path manipulation such as
+# pygtk.require().
+
+# gen-py module has to be added manually since it's generated using maxskins,
+# thus pylint does not know where gen-py module is located.
+# For this to work properly
+# pylint has to be called from directory: example/*/client/py.
+init-hook='import sys; sys.path.append("gen-py")'
+
+[REPORTS]
+
+# Set the output format. Available formats are text, parseable, colorized, msvs
+# (visual studio) and html. You can also give a reporter class, eg
+# mypackage.mymodule.MyReporterClass.
+output-format=colorized
+
+[FORMAT]
+
+function-rgx=[a-zA_][a-zA-Z0-9_]{2,70}$
+method-rgx=[a-z_][a-zA-Z0-9_]{2,70}$
+
+# Maximum number of characters on a single line.
+max-line-length=200
+
+
+[TYPECHECK]
+
+# List of module names for which member attributes should not be checked
+# (useful for modules/projects where namespaces are manipulated during runtime
+# and thus existing member attributes cannot be deduced by static analysis
+ignored-modules=
+
+ignored-classes=
+
+generated-members=commit,query,add,delete,run
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+#notes=FIXME,TODO
+notes=
+
+good-names=i,j,x,y,id
+
+[DESIGN]
+
+# Maximum number of arguments for function / method
+max-args=5
+
+# Argument names that match this expression will be ignored. Default to name
+# with leading underscore
+ignored-argument-names=_.*
+
+# Maximum number of locals for function / method body
+max-locals=60
+
+# Maximum number of return / yield for function / method body
+max-returns=6
+
+# Maximum number of branch for function / method body
+max-branches=12
+
+# Maximum number of statements in function / method body
+max-statements=150
+
+# Maximum number of parents for a class (see R0901).
+max-parents=7
+
+# Maximum number of attributes for a class (see R0902).
+max-attributes=7
+
+# Minimum number of public methods for a class (see R0903).
+min-public-methods=2
+
+# Maximum number of public methods for a class (see R0904).
+max-public-methods=100
+
+# Maximum number of boolean expressions in a if statement
+max-bool-expr=5
+
+
+[MESSAGES CONTROL]
+
+# Enable the message, report, category or checker with the given id(s). You can
+# either give multiple identifier separated by comma (,) or put this option
+# multiple time.
+#enable=
+
+# Disable the message, report, category or checker with the given id(s). You
+# can either give multiple identifier separated by comma (,) or put this option
+# multiple time (only on the command line, not in the configuration file where
+# it should appear only once).
+disable=empty-docstring,broad-except,abstract-method,no-self-use,bad-continuation
