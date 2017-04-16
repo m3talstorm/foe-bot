@@ -14,6 +14,6 @@ game:
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
-    user_key: 0xtyAjGbfxjCGU7UchLrAIWn
+    user_key: '***'
     # This is the value of 'sid' inside the cookie of each request
-    sid: UGPhiOpx796cV7hxYmz0dVBsiGQsiqL15R0XAKxB
+    sid: '***'
