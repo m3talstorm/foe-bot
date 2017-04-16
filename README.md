@@ -1,6 +1,9 @@
-# FoE-Bot
+# FoE Bot
 
-A simple bot to do automate the main functions of FoE
+A simple bot to do automate the main functions of [Forge of Empires](https://en0.forgeofempires.com/page/)
+
+*Purely educational and to fuel curiosity*
+
 
 
 - git clone https://github.com/m3talstorm/foe-bot.git
