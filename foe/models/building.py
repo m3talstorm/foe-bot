@@ -111,7 +111,7 @@ class Building(Model):
         print "%s started production" % (self)
 
         #
-        self.collection_time = time.time() * (5 * 60)
+        self.collection_time = time.time() + (5 * 60)
         self.state = 'ProducingState'
 
         return response
