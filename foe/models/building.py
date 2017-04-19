@@ -87,6 +87,10 @@ class Building(Model):
 
             elif self.state == 'IdleState':
                 self.collection_time = 0
+                # Technically 'next_state_transition_in' would tell us when the build finishes
+                # So we could work out when its first produce would finish..let the update handle this for now
+            elif self.state == 'ConstructionState':
+                self.collection_time = 0
             else:
                 pprint.pprint(state)
 
@@ -103,7 +107,7 @@ class Building(Model):
         if self.collection_time:
             return
 
-        if self.state in ['ProducingState', 'ProductionFinishedState']:
+        if self.state in ['ProducingState', 'ProductionFinishedState', 'ConstructionState']:
             return
 
         response = self.request('startProduction', [self.id, 1])
