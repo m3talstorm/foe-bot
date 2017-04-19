@@ -51,7 +51,7 @@ class Request(object):
             # Important to keep this up to date
             "Client-Identification": "version=%s; requiredVersion=%s; platform=bro; platformVersion=web" % (version, version),
             "Origin": "https://foeen.innogamescdn.com",
-            "X-Requested-With": "ShockwaveFlash/25.0.0.127",
+            "X-Requested-With": "ShockwaveFlash/25.0.0.148",
             "Signature": "%s" % signature,
             "User-Agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36",
             "Content-Type": "application/json",
