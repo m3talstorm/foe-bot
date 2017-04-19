@@ -21,7 +21,7 @@ class Building(Model):
     """
     """
 
-    REQUEST_CLASS = "CityProductionService"
+    REQUEST_CLASS = 'CityProductionService'
 
     __tablename__ = 'building'
 
@@ -131,8 +131,12 @@ class Building(Model):
         print "%s picked up production" % (self)
 
         #
-        self.collection_time = 0
-        self.state = 'IdleState'
+        if self.type == 'residential':
+            self.collection_time = time.time() + (60 * 60)
+            self.state = 'ProducingState'
+        else:
+            self.collection_time = 0
+            self.state = 'IdleState'
 
         return response
 
