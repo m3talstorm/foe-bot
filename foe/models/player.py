@@ -98,6 +98,9 @@ class Player(Model):
         """
         """
 
+        if not self.collection_time:
+            return False
+
         if self.collection_time > time.time():
             return False
 
@@ -105,7 +108,7 @@ class Player(Model):
             return False
 
         if self.is_neighbor:
-            return False
+            return True
 
         if self.is_friend:
             return True
@@ -123,6 +126,8 @@ class Player(Model):
             return
 
         data = self.request('polivateRandomBuilding', self.player_id)
+
+        self.collection_time = 0
 
         print "%s aided" % (self)
 

@@ -82,6 +82,8 @@ class Tavern(Model):
 
         response = self.request('getOtherTavern', self.ownerId)
 
+        self.state = 'isSitting'
+
         print "%s sat" % (self)
 
         return response
