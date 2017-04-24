@@ -84,3 +84,29 @@ class Request(object):
         cls.REQUEST_ID = cls.REQUEST_ID + 1
 
         return data
+
+    @staticmethod
+    def service(data, service):
+        """
+        Extracts a service's data out of a response data
+        """
+
+        for i, value in enumerate(data):
+
+            if value['requestClass'] == service:
+                return value['responseData']
+
+        return None
+
+    @staticmethod
+    def method(data, method):
+        """
+        Extracts a methods's data out of a response data
+        """
+
+        for i, value in enumerate(data):
+
+            if value['requestMethod'] == method:
+                return value['responseData']
+
+        return None

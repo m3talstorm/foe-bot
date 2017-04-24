@@ -140,10 +140,7 @@ class Player(Model):
 
         data = self.request('visitPlayer', [self.player_id])
 
-        for i, value in enumerate(data):
-            if value['requestClass'] == 'OtherPlayerService':
-                city = value['responseData']
-                break
+        city = Request.service(data, 'OtherPlayerService')
 
         buildings = city['city_map']['entities']
 

@@ -73,15 +73,8 @@ class Account(Model):
 
         data = self.request('getData', [])
 
-        for i, value in enumerate(data):
-            if value['requestClass'] == 'StartupService':
-                account = value['responseData']
-                break
-
-        for i, value in enumerate(data):
-            if value['requestMethod'] == 'getOtherTavernStates':
-                account['taverns'] = value['responseData']
-                break
+        account = Request.service(data, 'StartupService')
+        account['taverns'] = Request.method(data, 'getOtherTavernStates')
 
         self.update(**account)
 

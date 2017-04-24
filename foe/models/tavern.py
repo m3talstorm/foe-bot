@@ -93,15 +93,12 @@ class Tavern(Model):
         """
         """
 
-        # 'getOwnTavern' to just view people sitting
+        # Get the list of players sitting in our tavern
         data = cls.request('getOwnTavern', [])
 
-        for i, value in enumerate(data):
-            if value['requestClass'] == 'FriendsTavernService':
-                tavern = value['responseData']
-                break
-
+        tavern = Request.service(data, 'FriendsTavernService')
         # Check if anyone is sitting, if there isn't then the 'collectReward' will throw an error
+        # TODO: Could let this get high, so we get slightly more silver
         if tavern['view']['visitors']:
             data = cls.request('collectReward', [])
 
