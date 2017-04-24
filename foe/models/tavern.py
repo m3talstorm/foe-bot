@@ -93,8 +93,20 @@ class Tavern(Model):
         """
         """
 
-        response = cls.request('getOwnTavern', [])
+        # 'getOwnTavern' to just view people sitting
+        data = cls.request('getOwnTavern', [])
 
-        print "Collected tavern"
+        for i, value in enumerate(data):
+            if value['requestClass'] == 'FriendsTavernService':
+                tavern = value['responseData']
+                break
 
-        return response
+        # Check if anyone is sitting, if there isn't then the 'collectReward' will throw an error
+        if tavern['view']['visitors']:
+            data = cls.request('collectReward', [])
+
+            print "Tavern collected"
+        else:
+            print "Tavern empty"
+
+        return cls
