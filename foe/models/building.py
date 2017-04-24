@@ -91,6 +91,8 @@ class Building(Model):
                 # So we could work out when its first produce would finish..let the update handle this for now
             elif self.state == 'ConstructionState':
                 self.collection_time = 0
+            elif self.state == 'UnconnectedState':
+                self.collection_time = 0
             else:
                 pprint.pprint(state)
 
@@ -107,7 +109,7 @@ class Building(Model):
         if self.collection_time:
             return
 
-        if self.state in ['ProducingState', 'ProductionFinishedState', 'ConstructionState']:
+        if self.state in ['ProducingState', 'ProductionFinishedState', 'ConstructionState', 'UnconnectedState']:
             return
 
         response = self.request('startProduction', [self.id, 1])
@@ -128,6 +130,9 @@ class Building(Model):
             return
 
         if self.collection_time > time.time():
+            return
+
+        if self.state in ['ConstructionState', 'UnconnectedState']:
             return
 
         response = self.request('pickupProduction', [[self.id]])
