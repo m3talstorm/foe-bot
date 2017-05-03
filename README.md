@@ -17,6 +17,7 @@ A simple bot to do automate the main functions of [Forge of Empires](https://en0
 
 ## TODO
 
+- [ ] Auto-login
 - [ ] Treasure Hunt
 - [ ] Auto-build and complete troops
 - [ ] Auto-scout provinces
