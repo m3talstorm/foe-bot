@@ -15,6 +15,9 @@ from sqlalchemy.orm import relationship, backref
 from request import Request
 from models.model import Model
 
+from config import config
+
+
 
 class Player(Model):
     """
@@ -108,13 +111,13 @@ class Player(Model):
             return False
 
         if self.is_neighbor:
-            return True
+            return config['settings']['polivate']['neighbours']
 
         if self.is_friend:
-            return True
+            return config['settings']['polivate']['friends']
 
         if self.is_guild_member:
-            return True
+            return config['settings']['polivate']['guild']
 
         return False
 
@@ -146,7 +149,7 @@ class Player(Model):
 
         for building in buildings:
 
-            if building['type'] in ['goods', 'production', 'random_production']:
+            if building['type'] not in ['residential', 'street', 'decoration']: #['goods', 'production', 'random_production']:
                 pprint.pprint(building)
 
         return data

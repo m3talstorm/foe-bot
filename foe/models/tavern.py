@@ -3,7 +3,6 @@
 """
 
 # Native
-import json
 
 # 3rd-Party
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
@@ -12,6 +11,10 @@ from sqlalchemy.orm import relationship
 #
 from request import Request
 from models.model import Model
+
+from config import config
+
+
 
 class Tavern(Model):
     """
@@ -42,11 +45,11 @@ class Tavern(Model):
     # Containers
     # ---------------------------------------------------------
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         """
 
-        return super(Tavern, self).__init__(**kwargs)
+        return super(Tavern, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         """
@@ -64,6 +67,9 @@ class Tavern(Model):
     def sittable(self):
         """
         """
+
+        if not config['settings']['tavern']['sit']:
+            return False
 
         if self.state in ['noChair', 'isSitting', 'alreadyVisited']:
             return False
@@ -93,12 +99,16 @@ class Tavern(Model):
         """
         """
 
+        if not config['settings']['tavern']['collect']:
+            return
+
         # Get the list of players sitting in our tavern
         data = cls.request('getOwnTavern', [])
 
         tavern = Request.service(data, 'FriendsTavernService')
         # Check if anyone is sitting, if there isn't then the 'collectReward' will throw an error
         # TODO: Could let this get high, so we get slightly more silver
+        # Max seats * 0.75?
         if tavern['view']['visitors']:
             data = cls.request('collectReward', [])
 

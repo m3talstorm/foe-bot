@@ -16,6 +16,8 @@ import deploy
 
 from db import session
 
+from config import config
+
 
 account = Account()
 
@@ -23,12 +25,14 @@ session.add(account)
 
 count = 0
 
-refresh = random.randrange(5 * 60, 30 * 60)
+refresh = random.randrange(config['settings']['update']['min'], config['settings']['update']['max'])
 
 while True:
 
     if not count or count >= refresh:
         account.fetch()
+
+        #break
 
         print "Players: %s" % (len(account.players))
 
@@ -46,7 +50,7 @@ while True:
 
         session.commit()
 
-        refresh = count + random.randrange(5 * 60, 30 * 60)
+        refresh = count + random.randrange(config['settings']['update']['min'], config['settings']['update']['max'])
 
     print "Checking... (%s)" % (count)
 
