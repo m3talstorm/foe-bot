@@ -7,13 +7,55 @@ game:
     server: en1
     # Inside the 'Client-Identification' header
     version: 1.99
+    version: '1.100'
     # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
     secret: UqO1UDI2SsDYiL/l1sANc/xCeiOXtMw5TQvcgAJgEBmcbNFbG+zS0HvqoQSOBFfRENW+JmfutSmK/8J/UsnZgw==
+    secret: Pf6ILMcgjr/15VVPCvPbTeV7oLn21X5hb/UREQJdOz9skBRRY9pPZvOxJ+1a6IqVl1cgsVm8Ov5pY7EDLQVukw==
     # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
     timestamp: 1492594896
+    timestamp: 1493803454
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
     user_key: '***'
     # This is the value of 'sid' inside the cookie of each request
     sid: '***'
+settings:
+    # How often the bot should do a full update
+    update:
+        min: 300
+        max: 1800
+    # Who should the bot polish/motivate
+    polivate:
+        #
+        friends: true
+        #
+        guild: true
+        # If this is true then you won't be able to attack and plunder anyone
+        neighbours: false
+    #
+    tavern:
+        # If the bot should collect silver from your tavern
+        collect: true
+        # The % of seats that should be in use before the bot collects the silver (the more people sitting the more silver you get per seat)
+        threshold: 75
+        # If the bot should try and sit in all friends taverns
+        sit: true
+    # What kinds of buildings the bot should collect from and start production
+    resources:
+
+        coins: true
+
+        supplies: true
+
+        random: true
+
+        goods: true
+    #
+    goods:
+        # If the bot should try and balance goods through the aution house so the quantities are roughly the same
+        balance: false
+    #
+    troops:
+        # If the bot should train all availible troop slots
+        train: true
