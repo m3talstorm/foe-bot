@@ -113,13 +113,13 @@ class Model(Base):
         """
         """
 
-        # body = "[{\"__class__\":\"ServerRequest\",\"requestData\":[22],\"requestClass\":\"CityProductionService\",\"requestId\":30,\"requestMethod\":\"cancelProduction\"}]"
+        #body = "[{\"requestClass\":\"CityProductionService\",\"requestId\":9,\"requestData\":[[27]],\"__class__\":\"ServerRequest\",\"requestMethod\":\"pickupProduction\"}]"
 
         payload = [OrderedDict([
-            ("__class__", "ServerRequest"),
-            ("requestData", data),
             ("requestClass", klass or cls.REQUEST_CLASS),
             ("requestId", Request.REQUEST_ID),
+            ("requestData", data),
+            ("__class__", "ServerRequest"),
             ("requestMethod", method)]
         )]
 
