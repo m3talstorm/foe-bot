@@ -29,7 +29,9 @@ A simple bot to do automate the main functions of [Forge of Empires](https://en0
 ## Install
 
 - git clone https://github.com/m3talstorm/foe-bot.git
-- cd foe-bot/foe
+- cd foe-bot
+- pip install -r requirements.txt
+- cd foe
 - Read the comments inside of *config/foe.yml* and update the values
 - python main.py
 - python monitor.py (in another process if you want to see some live updating)
