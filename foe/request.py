@@ -7,6 +7,7 @@ import hashlib
 import json
 import requests
 import random
+from collections import OrderedDict
 
 # Proprietary
 from config import config
@@ -57,9 +58,10 @@ class Request(object):
             "Content-Type": "application/json",
             "Accept": "*/*",
             "Referer": "https://foeen.innogamescdn.com/swf/Preloader.swf?%s/[[DYNAMIC]]/1" % (config['game']['timestamp']),
+            "Host": "%s.forgeofempires.com" % (config['game']['server']),
             "Accept-Encoding": "gzip, deflate, br",
             "Accept-Language": "en-US,en;q=0.8,ja;q=0.6",
-            "Cookie": "metricsUvId=98cf6fd3-5872-4080-bf40-934b90b70a71; sid=%s; req_page_info=game_v1; start_page_type=game; start_page_version=v1; _ga=GA1.2.724940699.1487015436; ig_conv_last_site=https://%s.forgeofempires.com/game/index" % (config['login']['sid'], config['game']['server']),
+            "Cookie": "metricsUvId=98cf6fd3-5872-4080-bf40-934b90b70a71; sid=%s; req_page_info=game_v1; start_page_type=game; start_page_version=v1; _ga=GA1.2.1298412460.1491422581; ig_conv_last_site=https://%s.forgeofempires.com/game/index" % (config['login']['sid'], config['game']['server']),
         }
 
         url = 'https://%s.forgeofempires.com/game/json?h=%s' % (config['game']['server'], config['login']['user_key'])
@@ -110,3 +112,20 @@ class Request(object):
                 return value['responseData']
 
         return None
+
+    @classmethod
+    def test(cls):
+        """
+        """
+
+        payload = [OrderedDict([
+            ("requestClass", "StartupService"),
+            ("requestId", 0),
+            ("requestData", []),
+            ("__class__", "ServerRequest"),
+            ("requestMethod", "getData")]
+        )]
+
+        encoded = cls.body(payload)
+
+        return encoded, cls.signature(encoded)
