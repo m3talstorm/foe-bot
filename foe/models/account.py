@@ -83,7 +83,6 @@ class Account(Model):
         return self
 
     def populate(self, *args, **kwargs):
-        """1
         """
 
         user = kwargs.pop('user_data')
