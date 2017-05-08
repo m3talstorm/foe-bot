@@ -34,9 +34,18 @@ class BuildingMonitor(Monitor):
         # Get all the ative attacks
         buildings = session.query(Building).order_by(Building.collection_time).all()
 
+        coins = 100
+        supplies = 100
+
+        now = moment.unix(time.time(), utc=True).format('HH:mm:ss')
+
+        self.screen.addstr(self.line, 0, "Time: %s | Running: %ss | Update in: %ss" % (now, int(self.running), 100))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
+        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % (coins, supplies))
+        self.screen.addstr(self.line, 0, "Friends: %s | Neighbours: %s | Guild: %s" % (1, 2, 3))
         self.screen.addstr(self.line, 0, "Buildings: %s" % (len(buildings)))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
+
         #
         MAPPER = {
             'residential': curses.color_pair(1),
@@ -47,7 +56,7 @@ class BuildingMonitor(Monitor):
         self.screen.addstr(self.line, 0, "ID  | Building                       | Type         | State                   | Collection Time | Remaining |")
         self.screen.addstr(self.line, 0, self.SEPERATOR)
         #
-        for building in buildings[:45]:
+        for building in buildings[:35]:
 
             colour = MAPPER.get(building.type, '')
 

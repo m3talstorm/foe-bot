@@ -27,6 +27,8 @@ class Monitor(object):
 
         self.screen = screen
         self.interval = float(interval)
+        # How long the monitor has been running for in seconds
+        self.running = 0
 
         return
 
@@ -68,6 +70,8 @@ class Monitor(object):
             self.screen.refresh()
             #
             time.sleep(self.interval)
+
+            self.running += self.interval
 
         return
 
