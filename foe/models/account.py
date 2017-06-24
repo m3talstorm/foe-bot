@@ -84,6 +84,7 @@ class Account(Model):
 
     def populate(self, *args, **kwargs):
         """
+        """
 
         user = kwargs.pop('user_data')
         social = kwargs.pop('socialbar_list')
