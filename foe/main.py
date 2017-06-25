@@ -63,17 +63,7 @@ while True:
     buildingService = BuildingService()
     response = buildingService.multipickup(account.city.buildings)
 
-    print "Before: %s" % (account.resources.supplies)
     account.updateFromResponse(response)
-    print "After: %s" % (account.resources.supplies)
-
-    # response = []
-    # for building in account.city.buildings:
-    #     response = building.pickup()
-    #
-    #     if response:
-    #         account.updateData(response)
-
 
     for building in account.city.buildings:
         sleep = random.uniform(0.5, 2)

@@ -39,7 +39,7 @@ class BuildingMonitor(Monitor):
         neighbours = session.query(Player).filter(Player.is_neighbor == 1).all()
         guild = session.query(Player).filter(Player.is_guild_member == 1).all()
 
-        resources = session.query(Resources).all()
+        resources = session.query(Resources).first()
 
         now = moment.unix(time.time(), utc=True).format('HH:mm:ss')
 
