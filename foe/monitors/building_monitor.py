@@ -15,6 +15,8 @@ import moment
 
 # # Proprietary
 from models.building import Building
+from models.player import Player
+from models.resources import Resources
 
 from db import session
 
@@ -33,16 +35,18 @@ class BuildingMonitor(Monitor):
 
         # Get all the ative attacks
         buildings = session.query(Building).order_by(Building.collection_time).all()
+        friends = session.query(Player).filter(Player.is_friend == 1).all()
+        neighbours = session.query(Player).filter(Player.is_neighbor == 1).all()
+        guild = session.query(Player).filter(Player.is_guild_member == 1).all()
 
-        coins = 100
-        supplies = 100
+        resources = session.query(Resources).all()
 
         now = moment.unix(time.time(), utc=True).format('HH:mm:ss')
 
         self.screen.addstr(self.line, 0, "Time: %s | Running: %ss | Update in: %ss" % (now, int(self.running), 100))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
-        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % (coins, supplies))
-        self.screen.addstr(self.line, 0, "Friends: %s | Neighbours: %s | Guild: %s" % (1, 2, 3))
+        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % (resources.money, resources.supplies))
+        self.screen.addstr(self.line, 0, "Friends: %s | Neighbours: %s | Guild: %s" % (len(friends), len(neighbours), len(guild)))
         self.screen.addstr(self.line, 0, "Buildings: %s" % (len(buildings)))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
 
