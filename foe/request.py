@@ -122,11 +122,12 @@ class Request(object):
         """
 
         payload = [OrderedDict([
-            ("requestClass", "StartupService"),
             ("requestId", 0),
-            ("requestData", []),
             ("__class__", "ServerRequest"),
-            ("requestMethod", "getData")]
+            ("requestClass", "StartupService"),
+            ("requestData", []),
+            ("requestMethod", "getData"),
+            ("voClassName", "ServerRequest")]
         )]
 
         encoded = cls.body(payload)
