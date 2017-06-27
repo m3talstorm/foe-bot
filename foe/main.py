@@ -42,9 +42,9 @@ while True:
 
         print "Taverns: %s" % (len(account.taverns))
 
-        print "Money: %s" % (account.resources.money)
+        print "Money: %s" % "{:,}".format(account.resources.money)
 
-        print "Supplies: %s" % (account.resources.supplies)
+        print "Supplies: %s" % "{:,}".format(account.resources.supplies)
 
         for tavern in account.taverns:
             tavern.sit()

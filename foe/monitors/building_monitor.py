@@ -45,7 +45,7 @@ class BuildingMonitor(Monitor):
 
         self.screen.addstr(self.line, 0, "Time: %s | Running: %ss | Update in: %ss" % (now, int(self.running), 100))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
-        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % (resources.money, resources.supplies))
+        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % ("{:,}".format(resources.money), "{:,}".format(resources.supplies)))
         self.screen.addstr(self.line, 0, "Friends: %s | Neighbours: %s | Guild: %s" % (len(friends), len(neighbours), len(guild)))
         self.screen.addstr(self.line, 0, "Buildings: %s" % (len(buildings)))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
