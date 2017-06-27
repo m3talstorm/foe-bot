@@ -59,16 +59,10 @@ while True:
         refresh = count + random.randrange(config['settings']['update']['min'], config['settings']['update']['max'])
 
     print "Checking... (%s)" % (count)
+    # NOTE: The full update should adjust for any coins/supplies/resources gained from these pickups
+    account.city.pickup()
 
-    buildingService = BuildingService()
-    response = buildingService.multipickup(account.city.buildings)
-
-    account.updateFromResponse(response)
-
-    for building in account.city.buildings:
-        sleep = random.uniform(0.5, 2)
-        time.sleep(sleep)
-        building.produce()
+    account.city.produce()
 
     session.commit()
 

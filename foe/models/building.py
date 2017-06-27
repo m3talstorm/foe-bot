@@ -94,29 +94,31 @@ class Building(Model):
             elif self.state == 'UnconnectedState':
                 self.collection_time = 0
             else:
+                # State we don't now about... so print it
                 pprint.pprint(state)
-
 
         return super(Building, self).populate(*args, **kwargs)
 
     def produce(self):
         """
+        Starts production in the building
         """
 
         if self.type == 'residential':
-            return
+            return None
 
         if self.collection_time:
-            return
+            return None
 
         if self.state in ['ProducingState', 'ProductionFinishedState', 'ConstructionState', 'UnconnectedState']:
-            return
+            return None
 
+        # NOTE: '1' means the first slot, which is 5 minutes for supplies or 4 hours for resources
         response = self.request('startProduction', [self.id, 1])
 
         print "%s started production" % (self)
 
-        #
+        # TODO: Resources should be 4 hours ... but should be corrected by the full update
         self.collection_time = time.time() + (5 * 60)
         self.state = 'ProducingState'
 
@@ -124,48 +126,23 @@ class Building(Model):
 
     def pickup(self):
         """
+        Picks up/gather the coins/supplies/resources from the building
         """
 
         if not self.pickupable():
-            return
+            return None
 
         response = self.request('pickupProduction', [[self.id]])
 
         print "%s picked up production" % (self)
 
-        self.pickupUpdateState()
-
-        return response
-
-    def multipickup(self, buildings):
-        """
-        """
-
-        updateIds = []
-
-        for building in buildings:
-            if not building.pickupable():
-                continue
-
-            updateIds.append(building.id)
-
-        if len(updateIds) == 0:
-            return []
-
-        response = self.request('pickupProduction', [updateIds])
-
-        for building in buildings:
-            if building.id not in updateIds:
-                continue
-
-            print "%s picked up production" % (building)
-
-            building.pickupUpdateState()
+        self.pickedup()
 
         return response
 
     def pickupable(self):
         """
+        Returns True if the build is ready to be picked up
         """
 
         if not self.collection_time:
@@ -179,8 +156,9 @@ class Building(Model):
 
         return True
 
-    def pickupUpdateState(self):
+    def pickedup(self):
         """
+        Marks the building as being picked up, resetting state and timers
         """
 
         if self.type == 'residential':
@@ -190,12 +168,15 @@ class Building(Model):
             self.collection_time = 0
             self.state = 'IdleState'
 
+        return self
+
     def cancel(self):
         """
+        Cancels the current prodution of the building, reverting it to the idle state
         """
 
         if self.type == 'residential':
-            return
+            return None
 
         response = self.request('cancelProduction', [[self.id]])
 
