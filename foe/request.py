@@ -52,11 +52,12 @@ class Request(object):
             # Important to keep this up to date
             "Client-Identification": "version=%s; requiredVersion=%s; platform=bro; platformVersion=web" % (version, version),
             "Origin": "https://foeen.innogamescdn.com",
-            "X-Requested-With": "ShockwaveFlash/25.0.0.148",
+            "X-Requested-With": "ShockwaveFlash/26.0.0.131",
             "Signature": "%s" % signature,
-            "User-Agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
             "Content-Type": "application/json",
             "Accept": "*/*",
+            "DNT": "1",
             "Referer": "https://foeen.innogamescdn.com/swf/Preloader.swf?%s/[[DYNAMIC]]/1" % (config['game']['timestamp']),
             "Host": "%s.forgeofempires.com" % (config['game']['server']),
             "Accept-Encoding": "gzip, deflate, br",
@@ -78,10 +79,12 @@ class Request(object):
 
         klass = status.get('__class__')
 
+        message = status.get('message')
+
         if klass == 'Error':
-            raise Exception(status.get('message'))
+            raise Exception(message)
         elif klass == 'Redirect':
-            raise Exception("Session has expired, update USR_KEY and SID")
+            raise Exception("Session has expired, update 'user_key' and 'sid' in config (%s)" % (message))
 
         cls.REQUEST_ID = cls.REQUEST_ID + 1
 
