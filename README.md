@@ -3,6 +3,8 @@
 
 A simple bot to do automate the main functions of [Forge of Empires](https://en0.forgeofempires.com/page/)
 
+Uses [FoE Decryption](https://github.com/m3talstorm/foe-decryption) for request signature generation.
+
 *Purely educational and to fuel curiosity*
 
 
