@@ -2,13 +2,13 @@
 """
 """
 
-#
+# Native
 import time
 import random
 
-#
+# 3rd-Party
 
-#
+# Proprietary
 from models.account import Account
 from models.tavern import Tavern
 from models.buildingService import BuildingService
