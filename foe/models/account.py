@@ -19,6 +19,7 @@ from models.model import Model
 from models.city import City
 from models.player import Player
 from models.tavern import Tavern
+from models.resources import Resources
 
 
 class Account(Model):
@@ -50,6 +51,8 @@ class Account(Model):
 
     taverns = relationship(Tavern, backref=backref('account', uselist=False))
 
+    resources = relationship(Resources, backref=backref('account', uselist=False), uselist=False)
+
     def __init__(self, *args, **kwargs):
         """
         """
@@ -75,12 +78,28 @@ class Account(Model):
 
         account = Request.service(data, 'StartupService')
         account['taverns'] = Request.method(data, 'getOtherTavernStates')
+        account['resources'] = Request.method(data, 'getPlayerResources')['resources']
 
         self.update(**account)
 
         print "%s fetched in %.2fs" % (self, time.time() - timer)
 
         return self
+
+    def updateFromResponse(self, data):
+        """
+        """
+
+        if not data:
+            return self
+
+        resources = Request.method(data, 'getPlayerResources')['resources']
+
+        if resources:
+            self.resources.update(**resources)
+
+        return self
+
 
     def populate(self, *args, **kwargs):
         """
@@ -90,6 +109,7 @@ class Account(Model):
         social = kwargs.pop('socialbar_list')
         taverns = kwargs.pop('taverns')
         city = kwargs.pop('city_map')
+        resources = kwargs.pop('resources')
 
         for key in ['player_id', 'user_name']:
             setattr(self, key, user[key])
@@ -123,5 +143,12 @@ class Account(Model):
                 tavern = Tavern(account=self)
 
             tavern.update(**raw_tavern)
+
+        # Resources
+
+        if not self.resources:
+            self.resources = Resources(account=self)
+
+        self.resources.update(**resources)
 
         return super(Account, self).populate(*args, **kwargs)

@@ -58,7 +58,7 @@ class TreasureChest(object):
         """
         """
 
-        if self.state['__class__'] = 'TreasureChestClosed':
+        if self.state['__class__'] == 'TreasureChestClosed':
             return
 
         response = self.request('collectTreasure', None)

@@ -126,28 +126,69 @@ class Building(Model):
         """
         """
 
-        if not self.collection_time:
-            return
-
-        if self.collection_time > time.time():
-            return
-
-        if self.state in ['ConstructionState', 'UnconnectedState']:
+        if not self.pickupable():
             return
 
         response = self.request('pickupProduction', [[self.id]])
 
         print "%s picked up production" % (self)
 
-        #
+        self.pickupUpdateState()
+
+        return response
+
+    def multipickup(self, buildings):
+        """
+        """
+
+        updateIds = []
+
+        for building in buildings:
+            if not building.pickupable():
+                continue
+
+            updateIds.append(building.id)
+
+        if len(updateIds) == 0:
+            return []
+
+        response = self.request('pickupProduction', [updateIds])
+
+        for building in buildings:
+            if building.id not in updateIds:
+                continue
+
+            print "%s picked up production" % (building)
+
+            building.pickupUpdateState()
+
+        return response
+
+    def pickupable(self):
+        """
+        """
+
+        if not self.collection_time:
+            return False
+
+        if self.collection_time > time.time():
+            return False
+
+        if self.state in ['ConstructionState', 'UnconnectedState']:
+            return False
+
+        return True
+
+    def pickupUpdateState(self):
+        """
+        """
+
         if self.type == 'residential':
             self.collection_time = time.time() + (60 * 60)
             self.state = 'ProducingState'
         else:
             self.collection_time = 0
             self.state = 'IdleState'
-
-        return response
 
     def cancel(self):
         """

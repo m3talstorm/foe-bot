@@ -11,6 +11,7 @@ import random
 #
 from models.account import Account
 from models.tavern import Tavern
+from models.buildingService import BuildingService
 
 import deploy
 
@@ -31,6 +32,7 @@ while True:
 
     if not count or count >= refresh:
         account.fetch()
+        session.commit()
 
         #break
 
@@ -39,6 +41,10 @@ while True:
         print "Buildings: %s" % (len(account.city.buildings))
 
         print "Taverns: %s" % (len(account.taverns))
+
+        print "Money: %s" % (account.resources.money)
+
+        print "Supplies: %s" % (account.resources.supplies)
 
         for tavern in account.taverns:
             tavern.sit()
@@ -54,10 +60,14 @@ while True:
 
     print "Checking... (%s)" % (count)
 
-    for building in account.city.buildings:
-        building.pickup()
+    buildingService = BuildingService()
+    response = buildingService.multipickup(account.city.buildings)
+
+    account.updateFromResponse(response)
 
     for building in account.city.buildings:
+        sleep = random.uniform(0.5, 2)
+        time.sleep(sleep)
         building.produce()
 
     session.commit()
