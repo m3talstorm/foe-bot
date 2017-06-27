@@ -6,11 +6,11 @@ game:
     # Update this to match the server you are playing on
     server: en1
     # Inside the 'Client-Identification' header
-    version: '1.102'
+    version: '1.104'
     # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
-    secret: zIHbzMRWEvJGIfftkYOYrXk06SZnu9C7LH/RMhS7LUH/Lg2WDJ+eGuloB4HUqIUR2cyInFJyN+/CMu8+WR2CHQ==
+    secret: oDtc9YJ7nRbNf3ui2AS/7yrFS4k4MGgjWCr6/Komfxmq9ue5EJBY1apDyRMV2fdvaLkQ3AnJrsMhWfdbSIieCw==
     # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
-    timestamp: 1496048897
+    timestamp: 1498469762
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
@@ -29,12 +29,12 @@ settings:
         #
         guild: true
         # If this is true then you won't be able to attack and plunder anyone
-        neighbours: false
+        neighbours: true
     #
     tavern:
         # If the bot should collect silver from your tavern
         collect: true
-        # The % of seats that should be in use before the bot collects the silver (the more people sitting the more silver you get per seat)
+        # (WIP) The % of seats that should be in use before the bot collects the silver (the more people sitting the more silver you get per seat)
         threshold: 75
         # If the bot should try and sit in all friends taverns
         sit: true
@@ -50,9 +50,9 @@ settings:
         goods: true
     #
     goods:
-        # If the bot should try and balance goods through the aution house so the quantities are roughly the same
+        # (WIP) If the bot should try and balance goods through the aution house so the quantities are roughly the same
         balance: false
     #
     troops:
-        # If the bot should train all availible troop slots
+        # (WIP) If the bot should train all availible troop slots
         train: true
