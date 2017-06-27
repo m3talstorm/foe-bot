@@ -100,7 +100,6 @@ class Account(Model):
 
         return self
 
-
     def populate(self, *args, **kwargs):
         """
         """
