@@ -115,7 +115,7 @@ class City(Model):
                 time.sleep(sleep)
 
                 building.pickup()
-            else:
+            elif building.id in sample:
                 # This building was picked up as part of the multi/batch pickup so just update the state
                 building.pickedup()
 
