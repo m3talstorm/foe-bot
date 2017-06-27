@@ -89,3 +89,4 @@ ENV/
 .ropeproject
 
 \.remote-sync\.json
+/foe/config/foe.yml
