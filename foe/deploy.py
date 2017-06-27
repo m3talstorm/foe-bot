@@ -25,4 +25,4 @@ print "Deploy: Committing to database..."
 
 session.commit()
 
-print "Deploy: Committed to database in %s" % (time.time() - start)
+print "Deploy: Committed to database in %.2fs" % (time.time() - start)
