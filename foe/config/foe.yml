@@ -6,11 +6,11 @@ game:
     # Update this to match the server you are playing on
     server: en1
     # Inside the 'Client-Identification' header
-    version: '1.107'
+    version: '1.113'
     # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
-    secret: 02GyO3wXLrPtxYPrd5BngIbarQvR1PoFyHw74hl4CCx4sCJgWKqQv2cDhMRG/llJ+n99MuMuply/yT10HYATbg==
+    secret: 9+P0hZzl2q8C4laJRj1ae7cyHYBC4jjAkfPohq5NGVLQ4fUW7GGqt1VkFHvP/k8oZPt3/eJ6dOzNfZWvt5kkTw==
     # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
-    timestamp: 1502268795
+    timestamp: 1509539021
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
