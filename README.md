@@ -7,6 +7,7 @@ Uses [FoE Decryption](https://github.com/m3talstorm/foe-decryption) for request 
 
 *Purely educational and to fuel curiosity*
 
+❗️ This project is no longer maintained by myself as I no longer player FoE, an from what i've heard they have/are switching to a 'HTML5' based solution. This approach may still work but you will need to make sure the version and secret (below) are up to date. ❗️
 
 ## Features
 
